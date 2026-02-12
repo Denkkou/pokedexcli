@@ -10,6 +10,8 @@ import (
 // Run the REPL with this function
 func startRepl() {
 	scanner := bufio.NewScanner(os.Stdin)
+
+	cfg := config {}
 	
 	for {
 		fmt.Print("Pokedex > ")
@@ -24,7 +26,7 @@ func startRepl() {
 		// Handle commands
 		if cmd, ok := getCommands()[input[0]]; ok {
 			// Capture callback func's error
-			err := cmd.callback()
+			err := cmd.callback(&cfg)
 			if err != nil {
 				fmt.Println(err)
 			}
@@ -41,11 +43,17 @@ func cleanInput(text string) []string {
 	return cleanedTextSlice
 }
 
+// Config for pagination
+type config struct {
+	next *string
+	prev *string
+}
+
 // Each cli command follows this structure
 type cliCommand struct {
 	name string
 	description string
-	callback func() error
+	callback func(config *config) error
 }
 
 func getCommands() map[string]cliCommand {
@@ -60,6 +68,16 @@ func getCommands() map[string]cliCommand {
 			name: "help",
 			description: "Displays a help message",
 			callback: commandHelp,
+		},
+		"map": {
+			name: "map",
+			description: "Display next 20 locations",
+			callback: commandMap,
+		},
+		"mapb": {
+			name: "mapb",
+			description: "Display previous 20 locations",
+			callback: commandMapBack,
 		},
 	}
 }

@@ -3,7 +3,7 @@ import (
 	"fmt"
 )
 
-func commandHelp() error {
+func commandHelp(config *config) error {
 	fmt.Println("\nWelcome to the Pokedex!")
 
 	// Generate a usage section by iterating command registry
