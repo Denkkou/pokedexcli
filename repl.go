@@ -5,13 +5,18 @@ import (
 	"bufio"
 	"strings"
 	"os"
+	"github.com/Denkkou/pokedexcli/internal/pokeapi"
 )
 
-// Run the REPL with this function
-func startRepl() {
-	scanner := bufio.NewScanner(os.Stdin)
+type config struct {
+	client pokeapi.Client
+	next *string
+	prev *string 
+}
 
-	cfg := config {}
+// Run the REPL with this function
+func startRepl(cfg *config) {
+	scanner := bufio.NewScanner(os.Stdin)
 	
 	for {
 		fmt.Print("Pokedex > ")
@@ -26,7 +31,7 @@ func startRepl() {
 		// Handle commands
 		if cmd, ok := getCommands()[input[0]]; ok {
 			// Capture callback func's error
-			err := cmd.callback(&cfg)
+			err := cmd.callback(cfg)
 			if err != nil {
 				fmt.Println(err)
 			}
@@ -43,11 +48,6 @@ func cleanInput(text string) []string {
 	return cleanedTextSlice
 }
 
-// Config for pagination
-type config struct {
-	next *string
-	prev *string
-}
 
 // Each cli command follows this structure
 type cliCommand struct {
