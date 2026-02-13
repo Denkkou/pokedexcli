@@ -5,7 +5,7 @@ import (
 	"errors"
 )
 
-func commandMap(config *config) error {
+func commandMap(config *config, parameter string) error {
 	// Get the map data from the client's GetLocations function
 	mapDataResponse, err := config.client.GetLocations(config.next)
 	if err != nil {
@@ -24,7 +24,7 @@ func commandMap(config *config) error {
 	return nil
 }
 
-func commandMapBack(config *config) error {
+func commandMapBack(config *config, parameter string) error {
 	if config.prev == nil {
 		return errors.New("Already on first page.")
 	}
