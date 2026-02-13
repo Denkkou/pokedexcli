@@ -37,7 +37,7 @@ func startRepl(cfg *config) {
 			}
 			continue
 		} else {
-			fmt.Println("Unknown command\n")
+			fmt.Println("Unknown command")
 			continue
 		}
 	}

@@ -18,8 +18,11 @@ type cacheEntry struct {
 }
 
 // Create new cache with given time interval
-func (ch *Cache) NewCache(interval time.Duration) *Cache {
-	newCache := &Cache{}
+func NewCache(interval time.Duration) *Cache {
+	newCache := &Cache{
+		entries: make(map[string]cacheEntry),
+		mu: &sync.Mutex{},
+	}
 
 	// Start reaping goroutine to prune old cache entries
 	go newCache.reapLoop(interval)
