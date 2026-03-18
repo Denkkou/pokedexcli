@@ -29,19 +29,20 @@ func (c *Client) Explore(areaName string) (ExploreData, error) {
 
 	res, err := c.httpClient.Do(req)
 	if err != nil {
-		return ExploreData{}, nil
+		return ExploreData{}, err
 	}
 	defer res.Body.Close()
 
-	// Unmarshal
+	// Read
 	data, err := io.ReadAll(res.Body)
 	if err != nil {
-		return ExploreData{}, nil
+		return ExploreData{}, err
 	}
 
 	// Cache data
 	c.cache.Add(fullURL, data)
 
+	// Unmarshal
 	exploreDataResponse := ExploreData{}
 	err = json.Unmarshal(data, &exploreDataResponse)
 	if err != nil {
