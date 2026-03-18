@@ -10,7 +10,7 @@ import (
 type Client struct {
 	httpClient http.Client
 	cache *pokecache.Cache
-	pokedex map[string]Pokemon
+	pokedex map[string]PokemonData
 }
 
 func NewClient(timeout time.Duration) Client {

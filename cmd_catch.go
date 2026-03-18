@@ -17,7 +17,7 @@ func commandCatch(config *config, pokemonName string) error {
 	}
 	
 	// Then, take its base experience to do the random chance
-	fmt.Printf("Throwing a Pokeball at %s...\n", catchResponse.name)
+	fmt.Printf("Throwing a Pokeball at %s...\n", catchResponse.Name)
 	//...
 
 	// Then add to pokedex
