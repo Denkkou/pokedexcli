@@ -12,11 +12,13 @@ type config struct {
 	client pokeapi.Client
 	next *string
 	prev *string 
+	pokedex map[string]pokeapi.PokemonData
 }
 
 // Run the REPL with this function
 func startRepl(cfg *config) {
 	scanner := bufio.NewScanner(os.Stdin)
+	cfg.pokedex = make(map[string]pokeapi.PokemonData)
 	
 	for {
 		fmt.Print("Pokedex > ")
