@@ -28,13 +28,13 @@ func commandCatch(config *config, pokemonToCatch string) error {
 	randNum := rand.Intn(baseExperience)
 
 	if randNum > threshold {
-		return fmt.Errorf("Failed to catch %s\n", pokemonName)		
+		return fmt.Errorf("Failed to catch %s", pokemonName)		
 	}
 
 	// If caught, add to pokedex
 	fmt.Printf("%s was caught!\n", pokemonName)
 
-	fmt.Printf("Added %s's data to the Pokedex.\n\n", pokemonName)
+	fmt.Printf("Added %s's data to the Pokedex!\n", pokemonName)
 	config.pokedex[pokemonName] = catchResponse
 
 
